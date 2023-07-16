@@ -47,10 +47,6 @@ export function ShareExpenseForm() {
         typeof window !== 'undefined' && window.localStorage.getItem('income2')
           ? +localStorage.getItem('income2')!
           : undefined,
-      expense:
-        typeof window !== 'undefined' && window.localStorage.getItem('expense')
-          ? +localStorage.getItem('expense')!
-          : undefined,
     },
   });
 
@@ -187,10 +183,10 @@ export function ShareExpenseForm() {
         </form>
       </Form>
       {result.person1Result && result.person2Result && (
-        <div className='flex flex-col md:flex-row justify-around mt-8'>
+        <div className='flex flex-col md:flex-row justify-between mt-8 gap-8'>
           <div className='flex flex-col'>
             <span className='font-bold text-2xl text-purple-400'>
-              Person&apos;s 1 share:
+              Person 1&apos;s share:
             </span>
             <span className='font-semibold text-lg'>
               {Intl.NumberFormat('en-US', {
@@ -201,7 +197,7 @@ export function ShareExpenseForm() {
           </div>
           <div className='flex flex-col'>
             <span className='font-bold text-2xl text-purple-400'>
-              Person&apos;s 2 share:
+              Person 2&apos;s share:
             </span>
             <span className='font-semibold text-lg'>
               {Intl.NumberFormat('en-US', {
