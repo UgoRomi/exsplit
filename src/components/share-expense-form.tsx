@@ -16,11 +16,13 @@ import {
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import { DollarSign } from 'lucide-react';
+import { Switch } from './ui/switch';
 
 const formSchema = z.object({
   income1: z.number().min(0).max(1000000),
   income2: z.number().min(0).max(1000000),
   expense: z.number().min(0).max(1000000),
+  round: z.boolean().optional(),
 });
 
 export function ShareExpenseForm() {
@@ -31,10 +33,17 @@ export function ShareExpenseForm() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues: {
+      round: true,
+    },
   });
 
-  function onSubmit({ expense, income1, income2 }: z.infer<typeof formSchema>) {
+  function onSubmit({
+    expense,
+    income1,
+    income2,
+    round,
+  }: z.infer<typeof formSchema>) {
     const totalIncome = income1 + income2;
     const person1Percentage = income1 / totalIncome;
     const person2Percentage = income2 / totalIncome;
@@ -42,8 +51,8 @@ export function ShareExpenseForm() {
     const person1Payment = expense * person1Percentage;
     const person2Payment = expense * person2Percentage;
     setResult({
-      person1Result: person1Payment,
-      person2Result: person2Payment,
+      person1Result: round ? Math.round(person1Payment) : person1Payment,
+      person2Result: round ? Math.round(person2Payment) : person2Payment,
     });
   }
   return (
@@ -128,6 +137,21 @@ export function ShareExpenseForm() {
                 </FormControl>
                 <FormDescription>The expense you want to split</FormDescription>
                 <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='round'
+            render={({ field }) => (
+              <FormItem className='flex items-center gap-x-2 space-y-0'>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormLabel>Round results</FormLabel>
               </FormItem>
             )}
           />
