@@ -87,7 +87,7 @@ export function ShareExpenseForm() {
                     </div>
                     <Input
                       type='number'
-                      className='text-neutral-800 pl-10'
+                      className='pl-10'
                       placeholder='Enter income'
                       {...field}
                       onChange={(event) => {
@@ -117,7 +117,7 @@ export function ShareExpenseForm() {
                     <Input
                       type='number'
                       placeholder='Enter income'
-                      className='text-neutral-800 pl-10'
+                      className='pl-10'
                       {...field}
                       onChange={(event) => {
                         localStorage.setItem('income2', event.target.value);
@@ -147,7 +147,7 @@ export function ShareExpenseForm() {
                     <Input
                       type='number'
                       placeholder='Enter expense'
-                      className='text-neutral-800 pl-10'
+                      className='pl-10'
                       {...field}
                       onChange={(event) => {
                         localStorage.setItem('expense', event.target.value);
