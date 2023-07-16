@@ -34,16 +34,23 @@ export function ShareExpenseForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      round: localStorage.getItem('round') === 'false' ? false : true,
-      income1: localStorage.getItem('income1')
-        ? +localStorage.getItem('income1')!
-        : undefined,
-      income2: localStorage.getItem('income2')
-        ? +localStorage.getItem('income2')!
-        : undefined,
-      expense: localStorage.getItem('expense')
-        ? +localStorage.getItem('expense')!
-        : undefined,
+      round:
+        typeof window !== 'undefined' &&
+        window.localStorage.getItem('round') === 'false'
+          ? false
+          : true,
+      income1:
+        typeof window !== 'undefined' && window.localStorage.getItem('income1')
+          ? +localStorage.getItem('income1')!
+          : undefined,
+      income2:
+        typeof window !== 'undefined' && window.localStorage.getItem('income2')
+          ? +localStorage.getItem('income2')!
+          : undefined,
+      expense:
+        typeof window !== 'undefined' && window.localStorage.getItem('expense')
+          ? +localStorage.getItem('expense')!
+          : undefined,
     },
   });
 
