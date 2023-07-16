@@ -187,7 +187,7 @@ export function ShareExpenseForm() {
         </form>
       </Form>
       {result.person1Result && result.person2Result && (
-        <div className='flex justify-around mt-8'>
+        <div className='flex flex-col md:flex-row justify-around mt-8'>
           <div className='flex flex-col'>
             <span className='font-bold text-2xl text-purple-400'>
               Person&apos;s 1 share:
