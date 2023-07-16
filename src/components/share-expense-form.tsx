@@ -34,7 +34,16 @@ export function ShareExpenseForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      round: true,
+      round: localStorage.getItem('round') === 'false' ? false : true,
+      income1: localStorage.getItem('income1')
+        ? +localStorage.getItem('income1')!
+        : undefined,
+      income2: localStorage.getItem('income2')
+        ? +localStorage.getItem('income2')!
+        : undefined,
+      expense: localStorage.getItem('expense')
+        ? +localStorage.getItem('expense')!
+        : undefined,
     },
   });
 
@@ -78,7 +87,10 @@ export function ShareExpenseForm() {
                       className='text-neutral-800 pl-10'
                       placeholder='Enter income'
                       {...field}
-                      onChange={(event) => field.onChange(+event.target.value)}
+                      onChange={(event) => {
+                        localStorage.setItem('income1', event.target.value);
+                        field.onChange(+event.target.value);
+                      }}
                     />
                   </div>
                 </FormControl>
@@ -104,7 +116,10 @@ export function ShareExpenseForm() {
                       placeholder='Enter income'
                       className='text-neutral-800 pl-10'
                       {...field}
-                      onChange={(event) => field.onChange(+event.target.value)}
+                      onChange={(event) => {
+                        localStorage.setItem('income2', event.target.value);
+                        field.onChange(+event.target.value);
+                      }}
                     />
                   </div>
                 </FormControl>
@@ -131,7 +146,10 @@ export function ShareExpenseForm() {
                       placeholder='Enter expense'
                       className='text-neutral-800 pl-10'
                       {...field}
-                      onChange={(event) => field.onChange(+event.target.value)}
+                      onChange={(event) => {
+                        localStorage.setItem('expense', event.target.value);
+                        field.onChange(+event.target.value);
+                      }}
                     />
                   </div>
                 </FormControl>
@@ -148,7 +166,10 @@ export function ShareExpenseForm() {
                 <FormControl>
                   <Switch
                     checked={field.value}
-                    onCheckedChange={field.onChange}
+                    onCheckedChange={(e) => {
+                      localStorage.setItem('round', e.toString());
+                      field.onChange(e);
+                    }}
                   />
                 </FormControl>
                 <FormLabel>Round results</FormLabel>
